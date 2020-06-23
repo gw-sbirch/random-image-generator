@@ -1,0 +1,48 @@
+service: generate-image-http-trigger
+
+frameworkVersion: '>=1.0.0 <2.0.0'
+
+provider:
+  name: azure
+  region: West Europe
+  runtime: nodejs12
+  tags:
+    env: ${opt:stage}
+    product: sas-token
+    platform: windows-x86
+    runtime: nodejs12
+
+plugins: 
+  - serverless-azure-functions
+
+package:
+  exclude:
+    - src/**
+    - .nyc_output/**
+    - .vscode/**
+    - .dist/**/*.tests.js
+    - .dist/**/*.tests.js.map
+    - .eslintignore
+    - .eslintrc.js
+    - .nycrc.json
+    - local.settings.json
+    - .gitignore
+    - tsconfig.json
+
+functions:
+  generate-image-to-url:
+    handler: dist/src/index
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: function
+          name: req
+          dataType: binary
+          methods:
+            - post
+          route: "v1/generate/image/to-url"
+      - http: true
+        x-azure-settings:
+          direction: out
+          dataType: binary
+          name: $return

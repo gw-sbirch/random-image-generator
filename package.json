@@ -9,16 +9,20 @@
     "test:watch": "mocha -r ts-node/register ./**/*.tests.ts --watch --watch-files ./**/*.tests.ts",
     "test:coverage": "nyc npm run test",
     "copy:windows": "cpx ../../../lib/windows/SDK/glasswall.classic.dll ./dist/lib/windows/SDK/ -u",
-    "run:example-usage": "npm run build && node .//dist//example-usage//generate-test-set.js"
+    "run:example-usage": "npm run build && node .//dist//example-usage//generate-test-set.js",
+    "run:example-usage-azure-function": "npm run build && node .//dist//example-usage//generate-test-set-with-azure-function.js"
   },
   "dependencies": {
+    "@azure/functions": "^1.2.2",
     "@types/node": "^14.0.13",
+    "node-fetch": "^2.6.0",
     "sharp": "^0.25.4"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
+    "@types/node-fetch": "^2.5.7",
     "@types/sharp": "^0.25.0",
     "@types/sinon": "^9.0.4",
     "chai": "^4.2.0",
